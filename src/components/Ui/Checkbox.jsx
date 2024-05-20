@@ -6,7 +6,7 @@ const Checkbox = ({ label, checked, onChange, className = "", ...props }) => {
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
+        className="form-checkbox my-2 h-4 w-4 text-blue-600 transition duration-150 ease-in-out"
         {...props}
       />
       <span className="text-gray-700">{label}</span>

@@ -1,15 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../components/Ui/InputField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Sidebar from "../../components/Ui/Sidebar";
+import SearchResult from "../../components/Search/SearchResult";
 
 const Search = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [flightData, setFlightData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetch("./zooFlightData.json") // Path to your local JSON file
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setFlightData(data);
+            setIsLoading(false);
+          });
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
-    <div className=" w-full h-screen">
+    <div className="min-h-screen">
       {/* all buttons and field  */}
-      <section className="absolute left-0 w-full bg-[#3c6382] pt-[25px]">
+      <section className="w-full bg-[#3c6382] pt-[25px]">
         <div className="max-w-7xl mx-auto">
           <div className=" flex space-x-1">
             <button className="p-4 rounded-t-lg bg-orange-500 text-white">
@@ -97,25 +119,26 @@ const Search = () => {
               </div>
             </button>
           </div>
-
-          <div className="absolute left-0 bg-[#0a3d62] w-full py-2">
-            <div className="max-w-7xl mx-auto text-white text-center">
-              <p className="text-xs mb-1">22 May, 2024</p>
-              <p className="flex justify-center items-center space-x-1">
-                <span>DAC</span>
-                <span>
-                  <img
-                    src="https://flight.zoo.family/front_asset/img/aro-icon.png"
-                    alt="flight"
-                    className="w-5 h-5"
-                  />
-                </span>
-                <span>DXB</span>
-              </p>
-            </div>
+        </div>
+        <div className="bg-[#0a3d62] w-full py-2">
+          <div className="max-w-7xl mx-auto text-white text-center">
+            <p className="text-xs mb-1">22 May, 2024</p>
+            <p className="flex justify-center items-center space-x-1">
+              <span>DAC</span>
+              <span>
+                <img
+                  src="https://flight.zoo.family/front_asset/img/aro-icon.png"
+                  alt="flight"
+                  className="w-5 h-5"
+                />
+              </span>
+              <span>DXB</span>
+            </p>
           </div>
+        </div>
 
-          <div className="bg-[#3c6382] py-5 mt-16 flex justify-around items-center text-white uppercase">
+        <div className="bg-[#3c6382] py-5 mt-2  text-white uppercase">
+          <div className="max-w-7xl mx-auto flex justify-around items-center">
             <div>search results</div>
             <div>passenger details </div>
             <div>booking confirmation</div>
@@ -123,11 +146,27 @@ const Search = () => {
         </div>
       </section>
 
-      <section className="py-6 grid grid-cols-2 gap-5">
+      {/* sidebar and search results  */}
+      <section className="max-w-7xl mx-auto py-6 grid grid-cols-4 gap-5">
         <div>
           <Sidebar></Sidebar>
         </div>
-        <div>column 2</div>
+        <div className="col-span-3">
+          {isLoading ? (
+            <div className="flex flex-col space-y-2 animate-pulse h-screen my-2">
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+              <div className="w-full h-16 bg-violet-200 rounded-sm py-3"></div>
+            </div>
+          ) : (
+            <SearchResult searchItems={flightData.result}></SearchResult>
+          )}
+        </div>
       </section>
     </div>
   );
