@@ -1,8 +1,43 @@
-# React + Vite
+# Assessment test for Frontend Developer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project, assigned by Zoo Travel BD, was completed using React JS.
 
-Currently, two official plugins are available:
+## Run Project in Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Clone the project
+
+```bash
+  git clone git@github.com:Hasibul294/zoo-family.git
+```
+
+After cloning the repository go to the project directory
+
+```bash
+  cd zoo-family
+```
+
+Install all dependencies
+
+```bash
+  npm install
+```
+
+Start in Dev mode
+
+```bash
+  npm run dev
+```
+
+Build the server
+
+```bash
+  npm run build
+```
+
+Start the server
+
+```bash
+  npm run preview
+```
+
+After run the project you will find the complete task that I have completed
